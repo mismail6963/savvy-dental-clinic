@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-primary: #AFC9DF;
+    --brand-accent: #6F8FAE;
+    --brand-dark: #4A6A85;
+    --brand-light: #D4E4F0;
+    --background: #ffffff;
+    --foreground: #1E2D3A;
+    --card-bg: #ffffff;
+    --card-border: #e5e7eb;
+    --muted: #f3f4f6;
+    --muted-foreground: #6b7280;
+  }
+
+  .dark {
+    --background: #0f172a;
+    --foreground: #e2e8f0;
+    --card-bg: #1e293b;
+    --card-border: #334155;
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+  }
+}
+
+@layer components {
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--brand-primary), var(--brand-accent));
+    z-index: 9999;
+    transition: width 0.1s linear;
+  }
+
+  .custom-cursor {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--brand-accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transition: transform 0.15s ease-out, opacity 0.15s ease-out;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+  }
+
+  .custom-cursor.hovering {
+    transform: translate(-50%, -50%) scale(1.5);
+    background: rgba(111, 143, 174, 0.2);
+  }
+
+  .gradient-fallback {
+    background: linear-gradient(135deg, #AFC9DF 0%, #6F8FAE 50%, #4A6A85 100%);
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dark .glass {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Hide default cursor on desktop when custom cursor is active */
+@media (pointer: fine) {
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+/* Date picker customization */
+.react-datepicker {
+  font-family: inherit !important;
+  border: 1px solid var(--card-border) !important;
+  border-radius: 0.75rem !important;
+  background-color: var(--card-bg) !important;
+}
+
+.react-datepicker__header {
+  background-color: var(--brand-primary) !important;
+  border-bottom: none !important;
+  border-radius: 0.75rem 0.75rem 0 0 !important;
+}
+
+.react-datepicker__day--selected {
+  background-color: var(--brand-accent) !important;
+  border-radius: 0.5rem !important;
+}
+
+.react-datepicker__day:hover {
+  background-color: var(--brand-light) !important;
+  border-radius: 0.5rem !important;
+}
+
+/* Skeleton loading animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--muted) 25%, var(--card-border) 50%, var(--muted) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.5rem;
+}
